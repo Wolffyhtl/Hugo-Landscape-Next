@@ -20,7 +20,7 @@ const projectRoot = path.resolve(__dirname, '..');
 // Expressive Code 配置
 const ecOptions = {
   themes: ['github-light', 'github-dark'],
-  themeCssSelector: (theme) => theme.name === 'github-dark' ? 'html.dark' : 'html:not(.dark)',
+  themeCssSelector: (theme) => theme.name === 'github-dark' ? '[data-theme="dark"]' : '[data-theme="light"]',
   plugins: [pluginCollapsibleSections(), pluginFrames()],
 };
 

@@ -1,11 +1,10 @@
-import '@fontsource/maple-mono';
+import "@fontsource/maple-mono";
 
 /* ========== 全局色相变量 ========== */
 :root {
     --hue: 250;
     --code-font-family: 'Maple Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
 }
-
 /* ========== 代码字体 ========== */
 code, pre, .code-block-wrapper code, .ec-code-block code {
     font-family: var(--code-font-family);
@@ -112,7 +111,6 @@ code, pre, .code-block-wrapper code, .ec-code-block code {
 /* ========== EC 生成的代码块容器 ========== */
 .ec-code-block {
     margin: 1.5rem 0;
-    background: oklch(0.18 0.02 var(--hue));
     border-radius: 0.5rem;
 }
 
