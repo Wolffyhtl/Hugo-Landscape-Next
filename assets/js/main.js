@@ -170,19 +170,8 @@ Somnia.prototype.libs = {
 
 const somnia = new Somnia();
 
-// ========== 自定义增强：主题色切换、复制按钮、导航栏绑定 ==========
+// ========== 初始化：色相 + 主题 + 复制按钮 ==========
 (function() {
-    // 亮暗主题切换（扩展原 switchTheme 逻辑，确保与其他库兼容）
-    window.switchTheme = function() {
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-        // 触发 Mermaid 重新渲染（如果已加载）
-        if (window.somnia && window.somnia.libs.mermaid.ok()) {
-            window.somnia.libs.mermaid.run();
-        }
-    };
-
     // 色相设置
     window.setHue = function(hue) {
         let num = Math.min(360, Math.max(0, parseInt(hue) || 250));
@@ -224,46 +213,6 @@ const somnia = new Somnia();
         });
     }
 
-    // 绑定导航栏按钮（主题面板、移动端菜单）
-    function bindNavButtons() {
-        const displayBtn = document.getElementById('display-settings-switch');
-        const displayPanel = document.getElementById('display-setting');
-        if (displayBtn && displayPanel) {
-            displayBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                displayPanel.classList.toggle('closed');
-            });
-            document.addEventListener('click', (e) => {
-                if (!displayPanel.contains(e.target) && e.target !== displayBtn) {
-                    displayPanel.classList.add('closed');
-                }
-            });
-        }
-        const schemeBtn = document.getElementById('scheme-switch');
-        if (schemeBtn) schemeBtn.addEventListener('click', window.switchTheme);
-        const menuBtn = document.getElementById('nav-menu-switch');
-        const menuPanel = document.getElementById('nav-menu-panel');
-        if (menuBtn && menuPanel) {
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                menuPanel.classList.toggle('closed');
-            });
-            document.addEventListener('click', (e) => {
-                if (!menuPanel.contains(e.target) && e.target !== menuBtn) {
-                    menuPanel.classList.add('closed');
-                }
-            });
-        }
-        const slider = document.getElementById('colorSlider');
-        if (slider) {
-            slider.addEventListener('input', (e) => window.setHue(e.target.value));
-        }
-        const resetBtn = document.getElementById('reset-hue-btn');
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => window.setHue(250));
-        }
-    }
-
     // 初始化
     function initCustom() {
         const savedHue = localStorage.getItem('hue');
@@ -275,7 +224,6 @@ const somnia = new Somnia();
             document.documentElement.classList.remove('dark');
             document.documentElement.setAttribute('data-theme', 'light');
         }
-        bindNavButtons();
         initCopyButtons();
     }
 
@@ -285,10 +233,9 @@ const somnia = new Somnia();
         initCustom();
     }
 
-    // 兼容 Swup 页面切换
+    // Swup 页面切换后重新绑定复制按钮
     if (typeof swup !== 'undefined') {
         swup.hooks.on('page:view', () => {
-            bindNavButtons();
             initCopyButtons();
         });
     }

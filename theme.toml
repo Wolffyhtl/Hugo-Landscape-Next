@@ -11,7 +11,7 @@ demosite = 'https://owner.github.io/repo'
 
 # Taxonomy terms
 tags = ['blog']
-features = ['unocss', 'swup']
+features = ['unocss', 'swup', 'alpinejs', 'preload', 'medium-zoom', 'pagefind']
 
 
 # If the theme has a single author

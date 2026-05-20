@@ -8,8 +8,7 @@
 {{ $mediumZoom := resources.Get "js/medium-zoom.min.js" }}
 {{ $swup := resources.Get "js/swup/Swup.umd.js" }}
 {{ $swupScroll := resources.Get "js/swup/scroll-plugin.js" }}
-
-{{/*  {{ $swupPreload := resources.Get "js/swup/preload-plugin.js" }}  */}}
+{{ $swupPreload := resources.Get "js/swup/preload-plugin.js" }}
 
 {{ if hugo.IsDevelopment }}
 <script defer src="{{ $variable.RelPermalink }}"></script>
@@ -22,7 +21,7 @@
 <script defer src="{{ $mediumZoom.RelPermalink }}"></script>
 <script defer src="{{ $swup.RelPermalink }}"></script>
 <script defer src="{{ $swupScroll.RelPermalink }}"></script>
-{{/*  <script defer src="{{ $swupPreload.RelPermalink }}"></script>  */}}
+<script defer src="{{ $swupPreload.RelPermalink }}"></script>
 {{ else }}
 {{- $jsBundle := slice }}
 {{- $jsBundle = $jsBundle | append $variable }}
@@ -36,29 +35,44 @@
 {{- $jsBundle = $jsBundle | append $mediumZoom }}
 {{- $jsBundle = $jsBundle | append $swup }}
 {{- $jsBundle = $jsBundle | append $swupScroll }}
+{{- $jsBundle = $jsBundle | append $swupPreload }}
 
 {{- $bundle := $jsBundle | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 <script defer src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" crossorigin="anonymous"></script>
 {{ end }}
 
 <script defer>
-    // tocComponent 依赖 scroll-plugin
     document.addEventListener('DOMContentLoaded', () => {
         somnia.PageInitCustom();
         somnia.swupPageInitMediumZoom();
         somnia.swupPageInitCustom();
+
         const swup = new Swup({
             containers: ["main", "#toc"],
             animationSelector: '[class*="transition-swup-"]',
-            // native: true,
+            cache: true,
             plugins: [
-                new SwupScrollPlugin(),
+                new SwupPreloadPlugin({
+                    preloadHoveredLinks: true,
+                    preloadVisibleLinks: { enabled: true, threshold: 0.2, delay: 500 }
+                }),
+                new SwupScrollPlugin({
+                    scroll: { behavior: 'smooth', reset: true }
+                }),
             ]
         });
-        // Alpine.start(); // Alpinejs 已经启动
+
+        // 标记 Swup 已就绪
+        Alpine.store('somnia').swupReady = true;
+
         swup.hooks.on('page:view', () => {
             somnia.swupPageInitMediumZoom();
             somnia.swupPageInitCustom();
+        });
+
+        // 页面切换开始时关闭浮动面板
+        swup.hooks.on('transitionStart', () => {
+            Alpine.store('somnia').menuOpen = false;
         });
     })
 </script>

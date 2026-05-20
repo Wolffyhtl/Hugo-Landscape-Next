@@ -5,12 +5,21 @@ document.addEventListener('alpine:init', () => {
         theme: localStorage.getItem('theme') || 'system',
         isDark: document.documentElement.classList.contains('dark'),
         menuOpen: false,
+        swupReady: false,
         init() {
-            // console.log("[Somnia] [Init]",this.theme, this.isDark);
+            // 监听系统主题变化
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                if (Alpine.store('somnia').theme === 'system') {
+                    document.documentElement.classList.toggle('dark', e.matches);
+                    Alpine.store('somnia').isDark = e.matches;
+                    // Mermaid 重新渲染（如果已加载）
+                    if (window.somnia && window.somnia.libs.mermaid.ok()) {
+                        window.somnia.libs.mermaid.run();
+                    }
+                }
+            });
         },
-        // 统一调用接口，方便未来改为全局事件总线 由 Somnia 负责
     });
-
 })
 
 // 处理页面数据 负责动态加载 js 等
@@ -24,10 +33,6 @@ function somniaData() {
             if (data.includes("katex")) {
                 somnia.libs.katex.run(document.getElementById("content-wrapper"));
             }
-            // 由 render-codeblock-mermaid.html 运行
-            // if (data.includes("mermaid")) {
-            //     somnia.libs.mermaid.run();
-            // }
             if (data.includes("home")) {
                 document.body.classList.add("lg:is-home");
             } else {
@@ -75,11 +80,13 @@ Somnia.prototype.axd.theme = function () {
             }
             document.documentElement.setAttribute('data-theme', newTheme);
 
-            // this.theme = newTheme;
-            // 改为 Alinejs 写法 :data-theme="theme" 让 theme 变量有点参与感
-            // toggleDarkModeElement.dataset.theme = newTheme;
             Alpine.store('somnia').theme = newTheme;
             Alpine.store('somnia').isDark = document.documentElement.classList.contains('dark');
+
+            // Mermaid 重新渲染（如果已加载）
+            if (window.somnia && window.somnia.libs.mermaid.ok()) {
+                window.somnia.libs.mermaid.run();
+            }
         }
     }
 }
