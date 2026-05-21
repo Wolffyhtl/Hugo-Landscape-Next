@@ -28,8 +28,10 @@
     "unist-util-visit": "^5.1.0"
   },
   "dependencies": {
+    "@expressive-code/plugin-line-numbers": "^0.42.0",
     "@fontsource/maple-mono": "^5.2.6",
     "@shikijs/themes": "^1.29.2",
+    "ec-lang-logo": "^1.0.5",
     "expressive-code": "^0.42.0"
   }
 }

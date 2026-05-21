@@ -5,6 +5,8 @@ import remarkRehype from 'remark-rehype';
 import rehypeExpressiveCode from 'rehype-expressive-code';
 import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections';
 import { pluginFrames } from '@expressive-code/plugin-frames';
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
+import { pluginLanguageLogo } from 'ec-lang-logo';
 import { toHtml } from 'hast-util-to-html';
 import { visit } from 'unist-util-visit';
 import fs from 'fs';
@@ -21,7 +23,15 @@ const projectRoot = path.resolve(__dirname, '..');
 const ecOptions = {
   themes: ['github-light', 'github-dark'],
   themeCssSelector: (theme) => theme.name === 'github-dark' ? '[data-theme="dark"]' : '[data-theme="light"]',
-  plugins: [pluginCollapsibleSections(), pluginFrames()],
+  plugins: [
+    pluginCollapsibleSections(),
+    pluginFrames(),
+    pluginLineNumbers(),
+    pluginLanguageLogo({
+      color: 'mono',           // 'mono' | 'original' | 'theme' | '#hexcolor'
+      excludedLangs: [],       // Array of language identifiers to exclude
+    })
+  ],
 };
 
 // unified 管道：remark -> rehype -> expressive-code

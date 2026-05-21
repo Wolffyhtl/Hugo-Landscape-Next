@@ -8,12 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@expressive-code/plugin-line-numbers':
+        specifier: ^0.42.0
+        version: 0.42.0
       '@fontsource/maple-mono':
         specifier: ^5.2.6
         version: 5.2.6
       '@shikijs/themes':
         specifier: ^1.29.2
         version: 1.29.2
+      ec-lang-logo:
+        specifier: ^1.0.5
+        version: 1.0.5(@expressive-code/core@0.42.0)
       expressive-code:
         specifier: ^0.42.0
         version: 0.42.0
@@ -73,6 +79,9 @@ packages:
 
   '@expressive-code/plugin-frames@0.42.0':
     resolution: {integrity: sha512-XtkPm+941Uta7Y+81Acv+OA/20F1NJmJhCX6UYGKpqEIGqplNh3PTOhcURp6tcruhlzJcWcvpWy6Oigz3SrjqA==}
+
+  '@expressive-code/plugin-line-numbers@0.42.0':
+    resolution: {integrity: sha512-xY0s/b8UTF8fGrHWbJ8uX95yCDU1NpepXOTtcLBJobQV08RA7G+hzxL0BtDRso7RK4bCrJHio+BgYzI/M21BBA==}
 
   '@expressive-code/plugin-shiki@0.42.0':
     resolution: {integrity: sha512-PMKey/kLmewttAHQezL+Y5Fx3vVssfDi3+FJOYQQS2mXP3tQspFELtKKAfsXfmSXdToZYgwoO69HJndqfE+09g==}
@@ -266,6 +275,11 @@ packages:
 
   dlv@1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
+
+  ec-lang-logo@1.0.5:
+    resolution: {integrity: sha512-sVtaIyeaaefRp+GzYqPbyjIILNgW/QV5O3hWtrVoluwhT+2frV9sXLmPRb32bKQH6lkkgooEypfGGdYKmIK1KQ==}
+    peerDependencies:
+      '@expressive-code/core': ^0.41.3
 
   es-errors@1.3.0:
     resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
@@ -634,6 +648,10 @@ packages:
     resolution: {integrity: sha512-eAVKTMedR5ckPo4xne/PjYQYrU3qx78gtJZ+sHlXEg5IHhhoQhMfZVzetTYuaJS0L2Ef3AcCRzCHV8T0WI6nIQ==}
     engines: {node: '>=20'}
 
+  simple-icons@16.20.0:
+    resolution: {integrity: sha512-2b7Xu+Zy+iwLiuLSAcWuxnM1ETNFy7JmxWSjh0Y/A8P3KGjFFcokbpWbUf/IivMNbR9WuZ/QQlirh5bGh3Q2vA==}
+    engines: {node: '>=0.12.18'}
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -738,6 +756,10 @@ snapshots:
       '@expressive-code/core': 0.42.0
 
   '@expressive-code/plugin-frames@0.42.0':
+    dependencies:
+      '@expressive-code/core': 0.42.0
+
+  '@expressive-code/plugin-line-numbers@0.42.0':
     dependencies:
       '@expressive-code/core': 0.42.0
 
@@ -926,6 +948,11 @@ snapshots:
   direction@2.0.1: {}
 
   dlv@1.1.3: {}
+
+  ec-lang-logo@1.0.5(@expressive-code/core@0.42.0):
+    dependencies:
+      '@expressive-code/core': 0.42.0
+      simple-icons: 16.20.0
 
   es-errors@1.3.0: {}
 
@@ -1408,6 +1435,8 @@ snapshots:
       '@shikijs/types': 4.0.2
       '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.4
+
+  simple-icons@16.20.0: {}
 
   source-map-js@1.2.1: {}
 
