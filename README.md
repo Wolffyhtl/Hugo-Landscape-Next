@@ -4,6 +4,9 @@ Hugo Theme Hugo-Landscape-Next <https://wolffyhtl.github.io/Hugo-Landscape-Next/
 
 Demo <https://wolffyhtl.github.io/Hugo-Landscape-Next/>
 
+文档可见 docs 目录和 [https://www.ftls.xyz/docs/somnia/somnia/](https://www.ftls.xyz/docs/somnia/somnia/)
+
+
 ## Features
 
 Use Unocss and Swup
