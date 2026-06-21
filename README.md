@@ -6,6 +6,9 @@ Demo <https://wolffyhtl.github.io/Hugo-Landscape-Next/>
 
 文档可见 docs 目录和 [https://www.ftls.xyz/docs/somnia/somnia/](https://www.ftls.xyz/docs/somnia/somnia/)
 
+原作者 @kkbt0
+
+原作 <https://github.com/kkbt0/hugo-landscape>
 
 ## Features
 
